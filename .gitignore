@@ -1,1 +1,4 @@
-**
+# ignore all files in repositories root ..
+/*
+# .. but no directories .. hopefully
+!/**/

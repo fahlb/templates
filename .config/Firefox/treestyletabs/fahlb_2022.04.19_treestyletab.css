@@ -1,0 +1,157 @@
+/* README =====================================================================
+
+Custom style rules for treestyletabs "Extra style rules for contents provided by Tree Style Tab". 
+Copy into corresponding field in extension settings.
+
+For more information, see: https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#for-version-2x
+
+*/ 
+
+/* STUFF =================================================================== */
+
+/* Show title of unread tabs with red and italic font */
+/*
+:root.sidebar tab-item.unread .label-content {
+  color: red !important;
+  font-style: italic !important;
+}
+*/
+
+/* Add private browsing indicator per tab */
+/*
+:root.sidebar tab-item.private-browsing tab-label:before {
+  content: "🕶";
+}
+*/
+
+:root.sidebar{
+  background-color: white;
+}
+
+
+/* TAB STYLES ============================================================== */
+
+/* Less (more?!) visible tab dividers. */
+tab-item-substance {
+  border-top: solid 1px rgba(133,133,133,0.2); 
+  border-bottom: solid 0px #00000012; */
+}
+
+/* Change styling of pending (unloaded) tabs */
+tab-item.discarded tab-item-substance {
+  opacity: 0.5;
+}
+
+/* active tab style*/
+/* hide proton border */
+tab-item.active .background {
+  opacity: 0;
+}
+tab-item.active tab-item-substance {
+  background: rgba(133,133,133,0.2) !important;
+  opacity: 1;
+}
+tab-item.active:not(.pinned) tab-item-substance {
+  /*background: #00000020 !important;*/
+  background-image: linear-gradient(90deg, rgb(101,101,101), 4px, transparent 0) !important; /**/
+  opacity: 1;
+}
+
+/* hover tab style */
+tab-item tab-item-substance:hover {
+  background: rgba(133,133,133,0.1);
+  opacity: 1;
+}
+
+/* tab hight */
+tab-item tab-item-substance {
+  height: px !important;
+}
+/* hide proton hover background*/
+tab-item tab-item-substance .background{
+  background: #F81F1F00 !important;
+  opacity: 1;
+}
+
+
+/* UNREAD TAB STYLE ======================================================== */
+tab-item.unread .label-content {
+  /*font-style: italic;*/
+}
+tab-item.unread tab-item-substance{
+  background-image: linear-gradient(90deg, #FFC107, 4px, transparent 0); /**/
+}
+
+/* CLOSEBOX ================================================================ */
+/* "#tabbar" is required for TST 3.4.0 and later! */
+#tabbar tab-item tab-item-substance:not(:hover) tab-closebox {
+  display: none;
+}
+
+/*
+:root.right tab-item tab-twisty {
+  order: 10001;
+}
+:root.right tab-item tab-closebox {
+  order: 10000;
+}*/
+
+/* hide closebox */
+tab-item tab-closebox {
+  display: none;
+}
+/* margin plays *//*
+tab-item tab-twisty {
+  margin-right: 0.5em;
+  opacity: 1 !important;
+  position: relative;
+  z-index: 10000;
+}*/
+/* hide twisty, make favicon "clickable" */
+tab-item tab-twisty {
+  margin-right: em;
+  opacity: 1 !important;
+  position: relative;
+  z-index: 10000;
+}
+/* tab margin left */
+tab-item{
+  margin-left: -0em;
+}
+
+/* favicon size scaling */
+tab-item:not(.faviconized):not(.loading) tab-favicon {
+  transform: scale() !important;}
+
+/* PINNED TABS ============================================================= */
+/* temp fix stupid margins to prevent cut-off with collapsed side bar - fml*/
+tab-item.pinned{
+  margin-left: 1px;
+  padding-left: 1px;
+  padding-right: 0px;
+  margin-right: 0px;
+}
+
+/* As little space before the tab name as possible.
+   The fold/unfold icon is not affected. */
+tab-item:not(.pinned) tab-item-substance {
+  padding-left: 8px !important; /* !important is required when there are enough tabs to cause a scrollbar */
+  margin-left: px !important;
+}
+
+
+/* SCROLL BAR ============================================================== */
+/* always left *//*
+:root.left #tabbar {
+  direction: ltr;
+  overflow-x: hidden;
+}
+*/
+
+/* NEW TAB BUTTON ========================================================== */
+.newtab-button-box {
+  display: none;
+}
+#tabbar {
+  bottom: 0 !important; /* Eliminate dead space on bottom */
+}

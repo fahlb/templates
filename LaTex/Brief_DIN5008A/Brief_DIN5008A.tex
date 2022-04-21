@@ -1,0 +1,151 @@
+% QUELLE: https://gist.github.com/puppe/4378686\\
+% Siehe auch: https://github.com/PanCakeConnaisseur/latex-briefvorlage-din-5008
+
+% TO DO:
+% - ananymisieren (!)
+% - auf GitHub teilen
+% - ???
+% - profit
+
+\documentclass[%
+  fontsize=11pt, % Schriftgröße
+  version=last%  % Neueste Version von KOMA-Skript verwenden
+]{scrlttr2}
+
+% USEPACKAGES ==================================================================
+
+% Sprachspezifisch -------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[babel,german=quotes]{csquotes} %\enquote{Anführungszeichen}
+
+% Darstellung ------------------------------------------------------------------
+\usepackage{enumitem} % custom list margin für Anlagenaufreihung
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx} % Um Grafiken (bspw. das Logo) einbinden zu können
+
+
+% KOMA-EINSTELLUNGEN ===========================================================
+
+\LoadLetterOption{DIN5008A} % Einstellungen für DIN 5008A laden 
+% Alternativen: DIN, DIN5008B ... und DIN6xx?! (Wie genau war das nochmal?)
+
+\KOMAoptions{
+% Formatierung -----------------------------------------------------------------
+enlargefirstpage,		% MEHR PLATZ
+firstfoot=false,		% NOCH MEHR PLATZ?!
+locfield=wide,          % Breite Absenderergänzung (location)
+fromalign=leftlocation, % Ausrichtung des Briefkopfes
+%fromrule=afteraddress,  % Trennlinie unter dem Briefkopf
+%backaddress=underlined
+%DIV=last, 				% attempt at bottom margin
+%DIV=calc, 				% ..again
+% Absenser ---------------------------------------------------------------------
+frommobilephone=false, 
+fromemail=false,       % Email wird im Briefkopf angezeigt
+fromphone=false,       % Telefonnumer wird im Briefkopf angezeigt
+frommobilephone=false,
+fromfax=false,         % Faxnummer wird im Briefkopf angezeit
+fromurl=false,         % URL wird im Briefkopf angezeigt
+fromlogo=false,        % Logo wird im Briefkopf angezeigt
+%subject=titled,       % Druckt "Betrifft: " vor dem Betreff
+% Zeichen ----------------------------------------------------------------------
+}
+\renewcommand*{\raggedsignature}{\raggedright}
+
+% ABSENDE(R)INFORMATIONEN ======================================================
+
+% Kontaktdaten -----------------------------------------------------------------
+\setkomavar{fromname}{VORNAME NACHNAME} % Name
+\setkomavar{fromaddress}{STRASSE NR\\ PLZ ORT}
+\setkomavar{fromfax}{FAXNUMMER} % Faxnummer
+\setkomavar{fromemail}{\href{mailto:MAILADRESSE}{MAILADRESSE}} % E-Mail
+\setkomavar{fromphone}{TELEFONNUMMER} % Telefonnummer
+\setkomavar{frommobilephone}{HANDYNUMMER} % Mobil
+\setkomavar{fromurl}[Website:~]{\href{WEBLINK}{WEBLINK}} % Website
+
+% Absenderergänzung ------------------------------------------------------------
+% Ergänzung in kleinem Text unter Absenderadresse
+\setkomavar{location}{%
+	\raggedright\footnotesize{%
+% Adressat
+		\indent\newline 
+%		\usekomavar{fromname}\\
+%  		\usekomavar{fromaddress}\\
+% Kontaktdaten .................................................................
+  		\usekomavar*{fromphone}\usekomavar{fromphone}\\
+  		\usekomavar*{frommobilephone}\usekomavar{frommobilephone}\\ %or "Mobil:"
+  		\usekomavar*{fromfax}\usekomavar{fromfax}\\
+  		\usekomavar*{fromemail}\usekomavar{fromemail}\\
+  		\usekomavar*{fromurl}\usekomavar{fromurl}\\
+% Geschäftszeichen .............................................................
+		\indent\newline
+%		Mein/Unser Zeichen: \\
+%		Personalnummer: \\
+%		Ihr Zeichen: \\
+	}
+}
+
+% Logo -------------------------------------------------------------------------
+% \setkomavar{fromlogo}{\includegraphics{logo.png}}
+
+% Bankverbindung ---------------------------------------------------------------
+\setkomavar{frombank}{}
+% Wird nicht automatisch verwendet. Dazu muss bspw. mittels \firstfoot ein eigener Brieffuß definiert werden.
+
+% Geschäftszeichenzeile --------------------------------------------------------
+% Alternativ zu Absenderergänzung
+\setkomavar{yourref}{}          % Ihr Zeichen
+\setkomavar{yourmail}{}         % Ihr Schreiben vom
+\setkomavar{myref}{}            % Unser Zeichen
+\setkomavar{customer}{}         % Kundennummer
+\setkomavar{invoice}{}          % Rechnungsnummer
+
+% Datierung --------------------------------------------------------------------
+\setkomavar{place}{ORT} % Ort
+\setkomavar{date}{\today}       % Datum
+% Signatur ---------------------------------------------------------------------
+
+\setkomavar{signature}{%
+	\usekomavar{fromname}\\ 
+%	Geschäftsführer%
+}
+
+
+\begin{document}
+
+\begin{letter}{ 
+% EMPFÄNGERADRESSE =============================================================
+	\indent\\ % für Absatz unter Absender
+%	ANSPRECHPARTNER\\
+	FIRMA\\
+	ABTEILUNG\\
+	STRASSE NR\\
+	PLZ ORT
+}
+
+%\setkomavar{title}{Titel}
+\setkomavar{subject}{BETREFF}
+\opening{Sehr geehrte Damen und Herren,}
+
+BRIEFTEXT
+
+\closing{Mit freundlichen Grüßen}
+
+% ===== Anlage(n) =====
+\bfseries
+\setkomavar*{enclseparator}{Anlagen} % Überschreibe Überschrift "Anlage(n)"
+\encl{
+\normalfont
+\begin{itemize}[leftmargin=*]
+	\item[-] Anlage 1
+	\item[-] Anlage 2
+\end{itemize}
+%\raggedright 
+%\medskip
+}
+
+% ===================
+
+\end{letter}
+\end{document}
